@@ -52,6 +52,42 @@ app/
 - `GET /predictions`
 - `GET /supported-sports`
 
+## Auth & demo flow
+
+Register a new user:
+
+```bash
+curl -X POST https://sports-ai-api-euyu.onrender.com/register \
+  -H "Content-Type: application/json" \
+  -d '{"username":"demo_user","password":"demo_pass"}'
+```
+
+Login to get a bearer token:
+
+```bash
+curl -X POST https://sports-ai-api-euyu.onrender.com/login \
+  -F "username=demo_user" \
+  -F "password=demo_pass"
+```
+
+Use the token for predictions:
+
+```bash
+curl -X POST https://sports-ai-api-euyu.onrender.com/predict \
+  -H "Authorization: Bearer <ACCESS_TOKEN>" \
+  -H "Content-Type: application/json" \
+  -d '{"team_a":"Arsenal","team_b":"Chelsea","sport":"football"}'
+```
+
+Call AI-powered predictions:
+
+```bash
+curl -X POST https://sports-ai-api-euyu.onrender.com/predict/ai \
+  -H "Authorization: Bearer <ACCESS_TOKEN>" \
+  -H "Content-Type: application/json" \
+  -d '{"team_a":"Arsenal","team_b":"Chelsea","sport":"football"}'
+```
+
 ## AI prediction
 
 Set `OPENAI_API_KEY` before using the AI-powered endpoint:
