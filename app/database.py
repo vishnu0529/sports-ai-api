@@ -1,7 +1,8 @@
 import os
-from sqlalchemy import create_engine, Column, Integer, String
+from datetime import datetime
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./predictions.db")
 
@@ -20,10 +21,15 @@ class Prediction(Base):
     __tablename__ = "predictions"
 
     id = Column(Integer, primary_key=True, index=True)
-    team_a = Column(String)
-    team_b = Column(String)
-    prediction = Column(String)
-    confidence = Column(String)
+    team_a = Column(String, nullable=False)
+    team_b = Column(String, nullable=False)
+    sport = Column(String, nullable=False, default="football")
+    prediction = Column(String, nullable=False)
+    confidence = Column(String, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+
+    user = relationship("User", back_populates="predictions")
 
 class User(Base):
     __tablename__ = "users"
@@ -31,5 +37,6 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
     hashed_password = Column(String)
+    predictions = relationship("Prediction", back_populates="user")
 
 Base.metadata.create_all(bind=engine)
