@@ -6,12 +6,12 @@
 
 AI-powered sports match predictions using OpenAI.
 
-**Live demo:** https://your-app.up.railway.app/docs
+**Live demo:** https://sports-ai-api-euyu.onrender.com/docs
 
 ## Quick start
 
 ```bash
-curl -X POST https://your-app.up.railway.app/predict \
+curl -X POST https://sports-ai-api-euyu.onrender.com/predict \
   -H "Content-Type: application/json" \
   -d '{"team_a":"Arsenal","team_b":"Chelsea","sport":"football"}'
 ```
