@@ -1,8 +1,0 @@
-bin/
-obj/
-.vscode/
-.DS_Store
-*.log
-.env
-sportsai.db
-*.db
